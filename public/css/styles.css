@@ -22,9 +22,12 @@
     font-style: normal;
 }
 body {
+    margin: 0;
+    padding: 0;
     font-family: "sfpro";
     background-color: #f8f9fa;
 }
+
 .form h1 {
     font-family: 'sfpro';
     font-weight: bold;
@@ -34,7 +37,7 @@ body {
     max-width: 400px;
     padding: 15px;
     margin: 0 auto;
-    margin-top: 100px;
+    margin-top: 30px;
     background-color: #fff;
     border: 1px solid #dcdcdc;
     border-radius: 5px;
@@ -66,4 +69,242 @@ body {
 }
 .agree {
     margin-left: 10px !important;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 7px 10px;
+}
+.logo img {
+    color: white;
+    text-decoration: none;
+    width: 120px;
+    height: auto;
+    transition: transform 1s;
+}
+.logo img:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+}
+.nav-links {
+    list-style-type: none;
+    margin:0;
+}
+.nav-links li {
+    display: inline-block;
+    margin-left: 20px;
+    position: relative;
+}
+.nav-links li a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 16px;
+}
+.dropdown {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 12px 20px 12px 0;
+}
+.dropdown li a {
+    color: black;
+    display: block;
+    position: relative;
+    transition: color 0.3s;
+    padding: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.highlight-link:hover {
+    color: #4368AE;
+}
+.highlight-link::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: #4368AE;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+.highlight-link:hover::after,
+.highlight-link:focus::after {
+    width: 100%;
+}
+
+.dropdown li a:hover,
+.dropdown li a:focus {
+    color: #598f91;
+}
+.dropdown li a:hover .svgLogo2 {
+    filter: brightness(1.5) sepia(1) hue-rotate(180deg) saturate(5) brightness(0.5);
+}
+
+.nav-links > li:hover > .dropdown {
+    display: block;
+}
+
+/* Style for the second level dropdown (sub-dropdown) */
+.sub-dropdown {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sub-dropdown li {
+    display: none;
+}
+
+.sub-dropdown li a {
+    color: black;
+    display: block;
+    text-decoration: none;
+}
+
+
+.buttons {
+    display: flex;
+}
+.btn2 {
+    padding: 6px 20px;
+    margin-left: 10px;
+    border: none;
+    color: #333;
+    background-color: #bdbdbd;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s;
+}
+.btn2:hover {
+    background-color: #555;
+}
+.login {
+    background-color: #bdbdbd;
+    color: #333;
+}
+.login:hover {
+    background-color: rgb(214, 214, 214);
+}
+.register {
+    background-color: #333;
+    color: #ffffff;
+}
+.register:hover {
+    background-color: rgb(73, 77, 74)
+}
+@keyframes slide {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.line {
+    width: 100%;
+    height: 6px;
+    background: linear-gradient(90deg, #3CB5BA 25%, #4368AE 50%, #3CB5BA 75%);
+    background-size: 400% 100%;
+    animation: slide 10s linear infinite;
+}
+
+.show-submenu li {
+    display: block;
+}
+
+.sub-sub-dropdown {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: none; /* Cachez initialement les éléments du sous-sous-menu */
+}
+
+.sub-sub-dropdown.show-sub-submenu {
+    display: block; /* Affichez les éléments du sous-sous-menu lorsque la classe show-sub-submenu est présente */
+}
+
+.sub-sub-dropdown li {
+    padding: 1px 0;
+}
+
+.sub-sub-dropdown li a {
+    color: black;
+    display: block;
+    padding: 1px 0;
+    text-decoration: none;
+}
+
+.sub-dropdown li a:hover,
+.sub-dropdown li a:focus {
+    color: #77bfc2;
+}
+
+.sub-sub-dropdown li a:hover,
+.sub-sub-dropdown li a:focus {
+    color: #95eef1;
+}
+.imgLogo {
+    width: 40px;
+    border-radius: 50px;
+}
+.svgLogo2 {
+    width: 20px;
+}
+.rougeAdmin {
+    color: #e82323 !important;
+    font-weight: bold;
+}
+
+
+
+/* FOMULAIRE DE CONTACT */
+.contact-form {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+#contact-h1{
+    font-weight: bold;
+}
+.contact-form form {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.contact-form label {
+    margin-bottom: 8px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.contact-form button {
+    padding: 10px;
+    background: linear-gradient(to right,#3CB5BA, #4368AE);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.contact-form button:hover {
+    transform: scale(1.03);
 }
