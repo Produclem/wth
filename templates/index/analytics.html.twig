@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://aframe.io/releases/1.1.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-csg-meshs/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.0/dist/aframe-extras.min.js"></script>
+    <title>BOITE</title>
+    <style>
+      @font-face {
+        font-family: "SFProDisplayRegular";
+        src: url("./fonts/SFPRODISPLAYREGULAR.OTF") format("opentype");
+      }
+
+      * {
+        font-family: "SFProDisplayRegular";
+      }
+
+      body,
+      html {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .bannerimg,
+      .bodyimg {
+        pointer-events: none;
+      }
+
+      #menu button {
+        margin-top: 10px;
+      }
+
+      #categories {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .category {
+        padding: 20px;
+        border: 1px solid black;
+        text-align: center;
+        transition: background-color 0.3s;
+      }
+
+      .category:hover {
+        background-color: #f0f0f0;
+      }
+
+      button {
+        padding: 13px 20px;
+        border: none;
+        color: #333;
+        background-color: #bdbdbd;
+        text-decoration: none;
+        border-radius: 30px;
+        transition: background-color 0.3s;
+        cursor: pointer;
+        color: #ffffff;
+      }
+
+      button:hover {
+        background-color: #555;
+      }
+
+      .continueBtn {
+        background-color: #4368ae;
+        margin-right: 10px;
+        font-family: "SFProDisplayRegular";
+      }
+
+      .continueBtn:hover {
+        background-color: #3cb5ba;
+      }
+
+      .quitBtn {
+        background-color: #3f0000;
+        font-family: "SFProDisplayRegular";
+      }
+
+      .quitBtn:hover {
+        background-color: rgb(138, 15, 15);
+      }
+
+      .page-transition-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, #4368ae, #3cb5ba);
+        z-index: 9999;
+        opacity: 1; /* Initialement visible */
+        visibility: visible;
+        transition: opacity 0.5s ease, visibility 0.5s;
+      }
+
+      .overlay-title {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 7vw;
+        text-align: center;
+        font-family: "SFProDisplayRegular";
+      }
+
+      /* fade in */
+      .exit-page-transition-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 1);
+        z-index: 9999;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s;
+      }
+      .overlay-logo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 300px;
+        max-height: 300px;
+      }
+
+      .overlay-active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      #menuIcon {
+        display: block; /* Assurez-vous que l'icône est toujours visible sauf quand le menu est ouvert */
+        width: 100px;
+        height: auto;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="page-transition-overlay">
+      <div class="overlay-title">Loading...</div>
+    </div>
+
+    <div class="exit-page-transition-overlay">
+      <img src="./img/logo.png" class="overlay-logo" />
+    </div>
+
+    <img
+      src="./img/menu-icon.jpg"
+      id="menuIcon"
+      style="
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        cursor: pointer;
+        z-index: 1000;
+      "
+    />
+
+    <a-scene physics>
+      <a-assets>
+        <video id="vid" src="./charts/nodata.mp4" autoplay loop muted></video>
+        <img id="charts2" src="./charts/charts2.jpg" />
+        <img id="charts3" src="./charts/charts3.png" />
+        <img id="charts4" src="./charts/charts4.jpg" />
+        <img id="landscape" src="./img/landscape.jpg" />
+        <img id="groundTexture" src="./img/ground.png" />
+        <img id="wallTexture" src="./img/wall.png" />
+        <img id="plafondTexture" src="./img/plafond.png" />
+        <img id="galaxyTexture" src="./img/galaxy.jpg" />
+        <a-asset-item id="nose" src="./models/nose/scene.gltf"></a-asset-item>
+        <a-asset-item id="mouth" src="./models/mouth/scene.gltf"></a-asset-item>
+        <a-asset-item id="eye" src="./models/eye/scene.gltf"></a-asset-item>
+        <a-asset-item id="hair" src="./models/hairs/scene.gltf"></a-asset-item>
+        <a-asset-item id="ear" src="./models/ear/scene.gltf"></a-asset-item>
+        <a-asset-item
+          id="gold"
+          src="./models/gold_coin/scene.gltf"
+        ></a-asset-item>
+        <a-asset-item
+          id="scientist"
+          src="./models/stark_scientist/scene.gltf"
+        ></a-asset-item>
+        <a-asset-item
+          id="skeleton"
+          src="./models/skeleton/scene.gltf"
+        ></a-asset-item>
+
+        <!-- hair -->
+        <img id="hairpoids" src="./charts/charts1.jpg" />
+        <img id="hairtaille" src="./charts/charts1.jpg" />
+        <img id="hairexercice" src="./charts/charts1.jpg" />
+        <img id="hairdifference" src="./charts/charts1.jpg" />
+        <img id="hairvariation" src="./charts/charts1.jpg" />
+        <img id="hairfonction" src="./charts/charts1.jpg" />
+        <img id="hairrecord" src="./charts/charts1.jpg" />
+        <img id="hairblessure" src="./charts/charts1.jpg" />
+
+        <!-- eye -->
+        <img id="eyepoids" src="./charts/charts1.jpg" />
+        <img id="eyetaille" src="./charts/charts1.jpg" />
+        <img id="eyeexercice" src="./charts/charts1.jpg" />
+        <img id="eyedifference" src="./charts/charts1.jpg" />
+        <img id="eyevariation" src="./charts/charts1.jpg" />
+        <img id="eyefonction" src="./charts/charts1.jpg" />
+        <img id="eyerecord" src="./charts/charts1.jpg" />
+        <img id="eyeblessure" src="./charts/charts1.jpg" />
+
+        <!-- nose -->
+        <img id="nosepoids" src="./charts/charts2.jpg" />
+        <img id="nosetaille" src="./charts/charts2.jpg" />
+        <img id="noseexercice" src="./charts/charts2.jpg" />
+        <img id="nosedifference" src="./charts/charts2.jpg" />
+        <img id="nosevariation" src="./charts/charts2.jpg" />
+        <img id="nosefonction" src="./charts/charts2.jpg" />
+        <img id="noserecord" src="./charts/charts2.jpg" />
+        <img id="noseblessure" src="./charts/charts2.jpg" />
+
+        <!-- mouth -->
+        <img id="mouthpoids" src="./charts/charts3.png" />
+        <img id="mouthtaille" src="./charts/charts3.png" />
+        <img id="mouthexercice" src="./charts/charts3.png" />
+        <img id="mouthdifference" src="./charts/charts3.png" />
+        <img id="mouthvariation" src="./charts/charts3.png" />
+        <img id="mouthfonction" src="./charts/charts3.png" />
+        <img id="mouthrecord" src="./charts/charts3.png" />
+        <img id="mouthblessure" src="./charts/charts3.png" />
+
+        <!-- ear -->
+        <img id="earpoids" src="./charts/charts4.jpg" />
+        <img id="eartaille" src="./charts/charts4.jpg" />
+        <img id="earexercice" src="./charts/charts4.jpg" />
+        <img id="eardifference" src="./charts/charts4.jpg" />
+        <img id="earvariation" src="./charts/charts4.jpg" />
+        <img id="earfonction" src="./charts/charts4.jpg" />
+        <img id="earrecord" src="./charts/charts4.jpg" />
+        <img id="earblessure" src="./charts/charts4.jpg" />
+      </a-assets>
+
+      <!-- PARTIE DU CORPS -->
+      <a-entity
+        position="0 3 -12"
+        animation="property: position; to: 0 2 -12; dir: alternate; dur: 1000; loop: true"
+      >
+        <a-entity
+          gltf-model="#nose"
+          scale="1 1 1"
+          rotation="0 -90 0"
+        ></a-entity>
+        <a-entity
+          gltf-model="#mouth"
+          scale="30 30 30"
+          rotation="0 0 0"
+        ></a-entity>
+        <a-entity
+          gltf-model="#eye"
+          scale="0.5 0.5 0.5"
+          rotation="0 0 0"
+        ></a-entity>
+        <a-entity gltf-model="#hair" scale="0.1 0.1 0.1" position="0 -13.8 0">
+          ></a-entity
+        >
+        <a-entity
+          gltf-model="#ear"
+          scale="0.2 0.2 0.2"
+          rotation="0 0 0"
+        ></a-entity>
+      </a-entity>
+      <!-- SCIENTIST -->
+      <a-entity
+        position="8 0 -4"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear"
+      >
+        <a-entity
+          gltf-model="#scientist"
+          scale="2 2 2"
+          rotation="0 -90 0"
+        ></a-entity>
+      </a-entity>
+      <!-- SQUELETTE -->
+      <a-entity
+        gltf-model="#skeleton"
+        position="-8 1.5 -4"
+        scale="0.4 0.4 0.4"
+        rotation="0 90 0"
+      ></a-entity>
+      <!-- LOGO -->
+      <a-image
+        src="./models/logo/logo.png"
+        position="0 3 4"
+        rotation="0 180 0"
+        scale="2 2 1"
+        animation="property: position; to: 0 2 4; dir: alternate; dur: 1000; loop: true"
+      >
+      </a-image>
+      <!-- SOCLE -->
+      <a-entity gltf-model="#gold" position="0 0 -12" scale="1"></a-entity>
+      <a-entity gltf-model="#gold" position="0 0 4" scale="1"></a-entity>
+      <a-entity gltf-model="#gold" position="8 0 -4" scale="1"></a-entity>
+      <a-entity gltf-model="#gold" position="-8 0 -4" scale="1"></a-entity>
+      <!-- SOL -->
+      <a-plane
+        static-body
+        id="plane"
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="20"
+        height="20"
+        src="#groundTexture"
+        shadow="cast: false; received: true"
+      ></a-plane>
+
+      <!-- PLAFOND -->
+      <a-plane
+        id="plane"
+        position="0 8.5 -4"
+        rotation="90 180 0"
+        width="20"
+        height="20"
+        material="src: #plafondTexture; transparent: true;"
+      ></a-plane>
+
+      <!-- MUR DEVANT -->
+      <a-box
+        src="#wallTexture"
+        static-body
+        position="0 3.5 -14"
+        width="20"
+        height="10"
+        depth="0.5"
+      ></a-box>
+      <a-text
+        value="Load data by selecting a body part in menu !"
+        position="0 6 -12"
+        align="center"
+        width="13"
+        color="#FFF"
+      ></a-text>
+      <!-- MUR DERRIERE -->
+      <a-box
+        src="#wallTexture"
+        static-body
+        position="0 3.5 6"
+        width="20"
+        height="10"
+        depth="0.5"
+      ></a-box>
+
+      <!-- MUR GAUCHE -->
+      <a-box
+        src="#wallTexture"
+        static-body
+        position="-10 3.5 -4"
+        width="0.5"
+        height="10"
+        depth="20"
+      ></a-box>
+
+      <!-- MUR DROITE -->
+      <a-box
+        src="#wallTexture"
+        static-body
+        position="10 3.5 -4"
+        width="0.5"
+        height="10"
+        depth="20"
+      ></a-box>
+
+      <!-- GRAPH DEVANT GAUCHE (poids moyen)-->
+      <a-plane
+        static-body
+        position="-5.6 2.35 -13.74"
+        rotation="0 0 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-devant-gauche"
+        src="#vid"
+      ></a-plane>
+
+      <a-text
+        value="POIDS MOYEN"
+        position="-5.6 5 -13.74"
+        align="center"
+        color="#FFF"
+      ></a-text>
+
+      <!-- GRAPH DEVANT DROITE (taille moyenne)-->
+      <a-plane
+        static-body
+        position="5.6 2.35 -13.74"
+        rotation="0 0 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-devant-droite"
+        src="#vid"
+      ></a-plane>
+      <a-text
+        value="TAILLE MOYENNE"
+        position="5.6 5 -13.74"
+        align="center"
+        color="#FFF"
+      ></a-text>
+
+      <!-- GRAPH DERRIERE DROITE (exercice renforcement)-->
+      <a-plane
+        static-body
+        position="5.6 2.35 5.74"
+        rotation="0 180 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-derriere-droite"
+        src="#vid"
+      ></a-plane>
+      <a-text
+        value="EXERCICES DE RENFORCEMENT"
+        position="5.6 5 5.74"
+        align="center"
+        color="#FFF"
+        rotation="0 180 0"
+      ></a-text>
+
+      <!-- GRAPH DERRIERE GAUCHE (diff homme/femme)-->
+      <a-plane
+        static-body
+        position="-5.6 2.35 5.74"
+        rotation="0 180 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-derriere-gauche"
+        src="#vid"
+      ></a-plane>
+      <a-text
+        value="DIFFERENCES HOMME/FEMME"
+        position="-5.6 5 5.74"
+        align="center"
+        color="#FFF"
+        rotation="0 180 0"
+      ></a-text>
+
+      <!-- GRAPH GAUCHE GAUCHE (variations anatomiques)-->
+      <a-plane
+        static-body
+        position="-9.74 2.35 1.6"
+        rotation="0 90 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-gauche-gauche"
+        src="#vid"
+      ></a-plane>
+      <a-text
+        value="VARATIONS ANATOMIQUES"
+        position="-9.74 5 1.6"
+        align="center"
+        color="#FFF"
+        rotation="0 90 0"
+      ></a-text>
+
+      <!-- GRAPH GAUCHE DROITE (fonction principale)-->
+      <a-plane
+        static-body
+        position="-9.74 2.35 -9.6"
+        rotation="0 90 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-gauche-droite"
+        src="#vid"
+      ></a-plane>
+      <a-text
+        value="FONCTION PRINCIPALE"
+        position="-9.74 5 -9.6"
+        align="center"
+        color="#FFF"
+        rotation="0 90 0"
+      ></a-text>
+
+      <!-- GRAPH DROITE GAUCHE (record du monde taille)-->
+      <a-plane
+        static-body
+        position="9.74 2.35 -9.6"
+        rotation="0 270 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-droite-gauche"
+        src="#vid"
+      ></a-plane>
+      <a-text
+        value="RECORD DU MONDE"
+        position="9.74 5 -9.6"
+        align="center"
+        color="#FFF"
+        rotation="0 270 0"
+      ></a-text>
+
+      <!-- GRAPH DROITE DROITE (frequence de blessure/blessure)-->
+      <a-plane
+        static-body
+        position="9.74 2.35 1.6"
+        rotation="0 270 0"
+        width="8"
+        height="4.5"
+        color="white"
+        id="graph-droite-droite"
+        src="#vid"
+      ></a-plane>
+      <a-text
+        value="BLESSURES"
+        position="9.74 5 1.6"
+        align="center"
+        color="#FFF"
+        rotation="0 270 0"
+      ></a-text>
+
+      <div
+        id="menu"
+        style="
+          display: none;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(0, 0, 0, 0.8);
+          z-index: 999;
+        "
+      >
+        <div
+          style="
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 50px;
+            border-radius: 50%;
+            text-align: center;
+            border: 15px solid rgb(228, 228, 228);
+            box-shadow: 0 0 10px 5px rgb(207, 207, 207);
+            width: 40%;
+          "
+        >
+          <img
+            class="bannerimg"
+            src="./img/banner.png"
+            alt="We The Humans"
+            style="
+              display: block;
+              margin-left: auto;
+              margin-right: auto;
+              width: 50%;
+              height: auto;
+            "
+          />
+          <div id="image-container" style="position: relative">
+            <img
+              class="bodyimg"
+              src="./img/body.png"
+              alt="Body"
+              style="display: block; width: 70%; margin: auto; height: auto"
+            />
+            <!-- TETE -->
+            <div
+              class="clickable-point hair"
+              style="
+                position: absolute;
+                top: 0.5%;
+                left: 49.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(0, 204, 255);
+                border-radius: 50%;
+                cursor: pointer;
+              "
+            ></div>
+            <div
+              class="clickable-point eye"
+              style="
+                position: absolute;
+                top: 6%;
+                left: 48%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(0, 204, 255);
+                border-radius: 50%;
+                cursor: pointer;
+              "
+            ></div>
+            <div
+              class="clickable-point eye"
+              style="
+                position: absolute;
+                top: 6%;
+                left: 51%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(0, 204, 255);
+                border-radius: 50%;
+                cursor: pointer;
+              "
+            ></div>
+            <div
+              class="clickable-point nose"
+              style="
+                position: absolute;
+                top: 7.5%;
+                left: 49.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(0, 204, 255);
+                border-radius: 50%;
+                cursor: pointer;
+              "
+            ></div>
+            <div
+              class="clickable-point mouth"
+              style="
+                position: absolute;
+                top: 9.5%;
+                left: 49.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(0, 204, 255);
+                border-radius: 50%;
+                cursor: pointer;
+              "
+            ></div>
+            <div
+              class="clickable-point ear"
+              style="
+                position: absolute;
+                top: 7.5%;
+                left: 46%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(0, 204, 255);
+                border-radius: 50%;
+                cursor: pointer;
+              "
+            ></div>
+            <div
+              class="clickable-point ear"
+              style="
+                position: absolute;
+                top: 7.5%;
+                left: 53%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(0, 204, 255);
+                border-radius: 50%;
+                cursor: pointer;
+              "
+            ></div>
+            <div
+              class="clickable-point sourcil"
+              style="
+                position: absolute;
+                top: 4%;
+                left: 48%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point sourcil"
+              style="
+                position: absolute;
+                top: 4%;
+                left: 51%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <!-- HAUT DU CORPS -->
+            <div
+              class="clickable-point epaule"
+              style="
+                position: absolute;
+                top: 19%;
+                left: 42.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point epaule"
+              style="
+                position: absolute;
+                top: 19%;
+                left: 56.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+
+            <div
+              class="clickable-point coude"
+              style="
+                position: absolute;
+                top: 35%;
+                left: 40.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point coude"
+              style="
+                position: absolute;
+                top: 35%;
+                left: 58.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+
+            <div
+              class="clickable-point poignet"
+              style="
+                position: absolute;
+                top: 45%;
+                left: 38.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point poignet"
+              style="
+                position: absolute;
+                top: 45%;
+                left: 60.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+
+            <div
+              class="clickable-point main"
+              style="
+                position: absolute;
+                top: 50%;
+                left: 37.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point main"
+              style="
+                position: absolute;
+                top: 50%;
+                left: 61.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+
+            <div
+              class="clickable-point cou"
+              style="
+                position: absolute;
+                top: 13%;
+                left: 49.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+
+            <div
+              class="clickable-point coeur"
+              style="
+                position: absolute;
+                top: 25%;
+                left: 52.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <!-- BAS DU CORPS -->
+            <div
+              class="clickable-point hanche"
+              style="
+                position: absolute;
+                top: 45%;
+                left: 49.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point cuisse"
+              style="
+                position: absolute;
+                top: 58%;
+                left: 45.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point cuisse"
+              style="
+                position: absolute;
+                top: 58%;
+                left: 53.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point genou"
+              style="
+                position: absolute;
+                top: 73%;
+                left: 45.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point genou"
+              style="
+                position: absolute;
+                top: 73%;
+                left: 53.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point mollet"
+              style="
+                position: absolute;
+                top: 82%;
+                left: 45.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point mollet"
+              style="
+                position: absolute;
+                top: 82%;
+                left: 53.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <!-- BAS DU CORPS -->
+            <div
+              class="clickable-point cheville"
+              style="
+                position: absolute;
+                top: 91%;
+                left: 46.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point cheville"
+              style="
+                position: absolute;
+                top: 91%;
+                left: 52.5%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point talon"
+              style="
+                position: absolute;
+                top: 95%;
+                left: 46%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point talon"
+              style="
+                position: absolute;
+                top: 95%;
+                left: 53%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point orteil"
+              style="
+                position: absolute;
+                top: 98%;
+                left: 47%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+            <div
+              class="clickable-point orteil"
+              style="
+                position: absolute;
+                top: 98%;
+                left: 52%;
+                width: 1%;
+                height: 1%;
+                background-color: rgb(146, 146, 146);
+                border-radius: 50%;
+                cursor: not-allowed;
+              "
+            ></div>
+          </div>
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              flex-direction: row;
+              margin-right: 27px;
+            "
+          >
+            <button class="continueBtn" onclick="continueGame()">
+              CONTINUE
+            </button>
+            <button class="quitBtn" data-target-url="{{ path('app_index') }}">QUIT</button>
+          </div>
+        </div>
+      </div>
+
+      <a-image
+        id="e-icon"
+        src="./img/e_icon.png"
+        position="-8 3.4Z -4"
+        rotation="0 90 0"
+        scale="0.6 0.6 0.6"
+        visible="false"
+      ></a-image>
+      <a-text
+        id="skeleton-text"
+        width="4"
+        value=""
+        position="-8 4 -4"
+        rotation="0 90 0"
+        align="center"
+        visible="false"
+      ></a-text>
+      <a-text
+        id="invite-text"
+        value="Voulez-vous une anecdote sur votre corps ?"
+        position="-8 4 -4"
+        rotation="0 90 0"
+        align="center"
+        visible="false"
+        color="#FFF"
+        background-color="#000"
+      ></a-text>
+
+      <a-sky
+        src="#galaxyTexture"
+        rotation="15 310 0"
+        animation="property: rotation; to: 0 0 0; loop: true; dur: 100000"
+      ></a-sky>
+      <a-camera></a-camera>
+    </a-scene>
+
+    <script>
+      window.onload = () => {
+        let anecdotes = [
+          "Le corps humain contient assez de fer pour fabriquer un clou de 7,5 cm.",
+          "Les humains et les girafes ont le même nombre de vertebres dans le cou.",
+          "Le battement moyen du cœur humain est de 100 000 fois par jour.",
+          "Les empreintes de langue sont aussi uniques que les empreintes digitales.",
+          "Les os humains sont incroyablement forts, avec une resistance comparable à celle de l'acier.",
+          "Les humains sont capables de distinguer environ un trillion de senteurs differentes.",
+          "Un adulte moyen respire environ 23 000 fois par jour.",
+          "Le corps humain contient suffisamment de carbone pour produire du graphite pour 9000 crayons.",
+          "Les ongles des mains poussent environ quatre fois plus vite que ceux des pieds.",
+          "Les bebes naissent avec environ 300 os, mais certains se fusionnent, laissant un adulte avec 206 os.",
+        ];
+        let usedAnecdotes = [];
+        let skeletonText = document.getElementById("skeleton-text");
+        let inviteText = document.getElementById("invite-text");
+        let eIcon = document.getElementById("e-icon");
+        let skeleton = document.querySelector('[gltf-model="#skeleton"]');
+        let camera = document.querySelector("a-camera");
+        let isCloseToSkeleton = false;
+
+        function updateProximity() {
+          let playerPosition = camera.object3D.position;
+          let skeletonPosition = skeleton.object3D.position;
+          let distance = playerPosition.distanceTo(skeletonPosition);
+
+          isCloseToSkeleton = distance < 6;
+
+          if (isCloseToSkeleton) {
+            eIcon.setAttribute("visible", true);
+            if (!skeletonText.getAttribute("visible")) {
+              inviteText.setAttribute("visible", true);
+              inviteText.setAttribute(
+                "value",
+                "Voulez-vous une anecdote sur votre corps ?"
+              );
+            }
+          } else {
+            inviteText.setAttribute("visible", false);
+            skeletonText.setAttribute("visible", false);
+            eIcon.setAttribute("visible", false);
+          }
+        }
+
+        function getRandomAnecdote() {
+          if (anecdotes.length === 0) {
+            return "Je n'ai plus d'anecdote, reviens plus tard !";
+          }
+          let index = Math.floor(Math.random() * anecdotes.length);
+          let anecdote = anecdotes[index];
+          anecdotes.splice(index, 1);
+          usedAnecdotes.push(anecdote);
+          return anecdote;
+        }
+
+        window.addEventListener("keydown", (event) => {
+          if ((event.key === "e" || event.key === "E") && isCloseToSkeleton) {
+            let anecdote = getRandomAnecdote();
+            skeletonText.setAttribute("value", anecdote);
+            skeletonText.setAttribute("visible", true);
+            inviteText.setAttribute("visible", false);
+          }
+        });
+
+        setInterval(updateProximity, 500);
+      };
+
+      // MENU
+
+      let isMenuActive = false;
+
+      function toggleMovementControls(enable) {
+        const camera = document.querySelector("[camera]");
+        if (camera) {
+          if (enable) {
+            camera.setAttribute("wasd-controls-enabled", "true");
+          } else {
+            camera.setAttribute("wasd-controls-enabled", "false");
+          }
+        }
+      }
+
+      function toggleMenu() {
+        var menu = document.getElementById("menu");
+        isMenuActive = !isMenuActive;
+        menu.style.display = isMenuActive ? "block" : "none";
+
+        // Activer ou désactiver les contrôles de mouvement
+        toggleMovementControls(!isMenuActive);
+
+        // Afficher ou masquer l'icône du menu en fonction de l'état du menu
+        var menuIcon = document.getElementById("menuIcon");
+        menuIcon.style.display = isMenuActive ? "none" : "block";
+      }
+
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape") {
+          toggleMenu();
+        }
+      });
+
+      function continueGame() {
+        toggleMenu();
+      }
+
+      document
+        .getElementById("menu")
+        .addEventListener("click", function (event) {
+          // Vérifier si le clic a eu lieu en dehors de la boîte de contenu du menu
+          var contentBox = document.querySelector("#menu > div");
+          if (!contentBox.contains(event.target)) {
+            continueGame(); // Fermer le menu
+          }
+        });
+
+      document.querySelectorAll(".clickable-point").forEach((point) => {
+        point.addEventListener("click", function (event) {
+          // Vérifier si l'élément est non cliquable
+          if (this.style.cursor === "not-allowed") {
+            event.preventDefault(); // Empêcher l'action si l'élément est non cliquable
+            return; // Ne pas continuer plus loin
+          }
+
+          // Obtenir la classe du point cliqué
+          let pointClass = this.classList[1]; // Nous prenons la deuxième classe car la première est 'clickable-point'
+
+          // Trouver l'élément <a-text> et mettre à jour sa valeur
+          let textElement = document.querySelector("a-text");
+          if (textElement) {
+            textElement.setAttribute("value", pointClass.toUpperCase());
+          }
+
+          if (isMenuActive) {
+            // Assurez-vous que cette variable existe dans votre script
+            toggleMenu();
+          }
+        });
+      });
+
+      // points cliquables
+
+      document
+        .querySelector(".clickable-point.mouth")
+        .addEventListener("click", function () {
+          changeGraphs("mouth");
+          if (isMenuActive) {
+            toggleMenu();
+          }
+        });
+
+      document
+        .querySelector(".clickable-point.nose")
+        .addEventListener("click", function () {
+          changeGraphs("nose");
+          if (isMenuActive) {
+            toggleMenu();
+          }
+        });
+
+      document
+        .querySelector(".clickable-point.eye")
+        .addEventListener("click", function () {
+          changeGraphs("eye");
+          if (isMenuActive) {
+            toggleMenu();
+          }
+        });
+
+      document
+        .querySelector(".clickable-point.hair")
+        .addEventListener("click", function () {
+          changeGraphs("hair");
+          if (isMenuActive) {
+            toggleMenu();
+          }
+        });
+
+      document
+        .querySelector(".clickable-point.ear")
+        .addEventListener("click", function () {
+          changeGraphs("ear");
+          if (isMenuActive) {
+            toggleMenu();
+          }
+        });
+
+      function changeGraphs(pointClass) {
+        document
+          .getElementById("graph-devant-gauche")
+          .setAttribute("src", `#${pointClass}poids`);
+        document
+          .getElementById("graph-devant-droite")
+          .setAttribute("src", `#${pointClass}taille`);
+        document
+          .getElementById("graph-derriere-droite")
+          .setAttribute("src", `#${pointClass}exercice`);
+        document
+          .getElementById("graph-derriere-gauche")
+          .setAttribute("src", `#${pointClass}difference`);
+        document
+          .getElementById("graph-gauche-gauche")
+          .setAttribute("src", `#${pointClass}variation`);
+        document
+          .getElementById("graph-gauche-droite")
+          .setAttribute("src", `#${pointClass}fonction`);
+        document
+          .getElementById("graph-droite-gauche")
+          .setAttribute("src", `#${pointClass}record`);
+        document
+          .getElementById("graph-droite-droite")
+          .setAttribute("src", `#${pointClass}blessure`);
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Sélectionner les modèles 3D de la mouth et du nose
+        let noseModel = document.querySelector('[gltf-model="#nose"]');
+        let mouthModel = document.querySelector('[gltf-model="#mouth"]');
+        let eyeModel = document.querySelector('[gltf-model="#eye"]');
+        let hairModel = document.querySelector('[gltf-model="#hair"]');
+        let earModel = document.querySelector('[gltf-model="#ear"]');
+
+        // Initialiser les modèles comme non visibles
+        noseModel.setAttribute("visible", false);
+        mouthModel.setAttribute("visible", false);
+        eyeModel.setAttribute("visible", false);
+        hairModel.setAttribute("visible", false);
+        earModel.setAttribute("visible", false);
+
+        // Gestionnaire d'événements pour le point "nose"
+        document
+          .querySelector(".clickable-point.nose")
+          .addEventListener("click", function () {
+            noseModel.setAttribute("visible", true);
+            mouthModel.setAttribute("visible", false);
+            eyeModel.setAttribute("visible", false);
+            hairModel.setAttribute("visible", false);
+            earModel.setAttribute("visible", false);
+            // Autres actions nécessaires, comme changer les graphiques
+            changeGraphs("nose");
+            if (isMenuActive) toggleMenu();
+          });
+
+        // Gestionnaire d'événements pour le point "mouth"
+        document
+          .querySelector(".clickable-point.mouth")
+          .addEventListener("click", function () {
+            mouthModel.setAttribute("visible", true);
+            noseModel.setAttribute("visible", false);
+            eyeModel.setAttribute("visible", false);
+            hairModel.setAttribute("visible", false);
+            earModel.setAttribute("visible", false);
+            // Autres actions nécessaires, comme changer les graphiques
+            changeGraphs("mouth");
+            if (isMenuActive) toggleMenu();
+          });
+
+        // Gestionnaire d'événements pour les points "eye"
+        document
+          .querySelectorAll(".clickable-point.eye")
+          .forEach((eyePoint) => {
+            eyePoint.addEventListener("click", function () {
+              // Afficher le modèle de l'œil et masquer les autres modèles
+              eyeModel.setAttribute("visible", true);
+              mouthModel.setAttribute("visible", false);
+              noseModel.setAttribute("visible", false);
+              hairModel.setAttribute("visible", false);
+              earModel.setAttribute("visible", false);
+
+              // Changer les graphiques si nécessaire
+              changeGraphs("eye");
+
+              // Fermer le menu si ouvert
+              if (isMenuActive) {
+                toggleMenu();
+              }
+            });
+          });
+
+        // Gestionnaire d'événements pour le point "hair"
+        document
+          .querySelector(".clickable-point.hair")
+          .addEventListener("click", function () {
+            hairModel.setAttribute("visible", true);
+            noseModel.setAttribute("visible", false);
+            mouthModel.setAttribute("visible", false);
+            eyeModel.setAttribute("visible", false);
+            earModel.setAttribute("visible", false);
+            // Autres actions nécessaires, comme changer les graphiques
+            changeGraphs("hair");
+            if (isMenuActive) toggleMenu();
+          });
+
+        // Gestionnaire d'événements pour les points "ear"
+        document
+          .querySelectorAll(".clickable-point.ear")
+          .forEach((earPoint) => {
+            earPoint.addEventListener("click", function () {
+              // Afficher le modèle de l'ear et masquer les autres modèles
+              earModel.setAttribute("visible", true);
+              eyeModel.setAttribute("visible", false);
+              mouthModel.setAttribute("visible", false);
+              noseModel.setAttribute("visible", false);
+              hairModel.setAttribute("visible", false);
+
+              // Changer les graphiques si nécessaire
+              changeGraphs("ear");
+
+              // Fermer le menu si ouvert
+              if (isMenuActive) {
+                toggleMenu();
+              }
+            });
+          });
+      });
+
+      document
+        .getElementById("menuIcon")
+        .addEventListener("click", function () {
+          toggleMenu();
+        });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const overlay = document.querySelector(".page-transition-overlay");
+        const title = document.querySelector(".overlay-title");
+
+        // Activer l'overlay au chargement de la page
+        overlay.style.opacity = "1";
+        overlay.style.visibility = "visible";
+        title.textContent = "3D ANALYTICS"; // Met à jour le titre de l'overlay
+
+        // Désactiver l'overlay après un court délai
+        setTimeout(() => {
+          overlay.style.opacity = "0";
+          overlay.style.visibility = "hidden";
+        }, 3000); // Délai de fade out
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const quitButton = document.querySelector(".quitBtn");
+        const overlay = document.querySelector(".exit-page-transition-overlay");
+
+        quitButton.addEventListener("click", function () {
+          const targetUrl = this.getAttribute("data-target-url"); // Obtenir l'URL cible
+
+          // Activer l'overlay de fade out
+          overlay.classList.add("overlay-active");
+
+          // Rediriger vers la nouvelle page après un court délai
+          setTimeout(() => {
+            window.location.href = targetUrl;
+          }, 500); // Correspond à la durée de transition de l'overlay
+        });
+      });
+
+      document
+        .querySelector("#vid")
+        .addEventListener("canplaythrough", function () {
+          this.play();
+        });
+    </script>
+  </body>
+</html>

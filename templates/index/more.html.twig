@@ -1,0 +1,330 @@
+{% block body %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mentions Légales - We The Humans</title>
+    <style>
+        @font-face {
+          font-family: "SFRegular";
+          src: url("./fonts/SFPRODISPLAYREGULAR.OTF") format("opentype");
+        }
+        
+        @font-face {
+          font-family: "SFMedium";
+          src: url("./fonts/SFPRODISPLAYMEDIUM.OTF") format("opentype");
+        }
+
+        @font-face {
+          font-family: "SFLight";
+          src: url("./fonts/SFPRODISPLAYLIGHTITALIC.OTF") format("opentype");
+        }
+        body {
+          margin: 0;
+          padding: 0;
+          background: linear-gradient(45deg, #1b376d, #11969b);
+          background-size: 400% 400%;
+          animation: Gradient 15s ease infinite;
+          overflow: auto;
+        }
+
+        html {
+            -webkit-user-select: none;
+            /* Safari */
+            -moz-user-select: none;
+            /* Firefox */
+            -ms-user-select: none;
+            /* IE10+/Edge */
+            user-select: none;
+            /* Standard */
+        }
+  
+        @keyframes Gradient {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+  
+        .legal-mentions {
+          margin: 20px;
+          padding: 20px;
+          border: 15px solid #3CB5BA;
+          background-color: white;
+        }
+  
+        .legal-mentions h1 {
+          color: #333;
+        }
+
+        h1 {
+            font-family: "SFRegular";
+        }
+
+        p {
+            font-family: "SFRegular";
+            font-weight: 100;
+        }
+
+      
+
+@import url('https://fonts.googleapis.com/css?family=Poppins:900i');
+
+.wrapper-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
+.cta {
+    display: flex;
+    padding: 10px 45px;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    color: white;
+    background: #4368AE;
+    transition: 1s;
+    box-shadow: 6px 6px 0 black;
+    transform: skewX(-15deg);
+}
+
+.cta:focus {
+   outline: none; 
+}
+
+.cta:hover {
+    transition: 0.5s;
+    box-shadow: 10px 10px 0 #3CB5BA;
+}
+
+.cta span:nth-child(2) {
+    transition: 0.5s;
+    margin-right: 0px;
+}
+
+.cta:hover  span:nth-child(2) {
+    transition: 0.5s;
+    margin-right: 45px;
+}
+
+  span {
+    transform: skewX(15deg) 
+  }
+
+  span:nth-child(2) {
+    width: 20px;
+    margin-left: 30px;
+    position: relative;
+    top: 12%;
+  }
+  
+/**************SVG****************/
+
+path.one {
+    transition: 0.4s;
+    transform: translateX(-60%);
+}
+
+path.two {
+    transition: 0.5s;
+    transform: translateX(-30%);
+}
+
+.cta:hover path.three {
+    -webkit-animation: color_anim 1s infinite 0.2s;
+            animation: color_anim 1s infinite 0.2s;
+}
+
+.cta:hover path.one {
+    transform: translateX(0%);
+    -webkit-animation: color_anim 1s infinite 0.6s;
+            animation: color_anim 1s infinite 0.6s;
+}
+
+.cta:hover path.two {
+    transform: translateX(0%);
+    -webkit-animation: color_anim 1s infinite 0.4s;
+            animation: color_anim 1s infinite 0.4s;
+}
+
+/* SVG animations */
+
+@-webkit-keyframes color_anim {
+    0% {
+        fill: white;
+    }
+    50% {
+        fill: #3CB5BA;
+    }
+    100% {
+        fill: white;
+    }
+}
+
+@keyframes color_anim {
+    0% {
+        fill: white;
+    }
+    50% {
+        fill: #3CB5BA;
+    }
+    100% {
+        fill: white;
+    }
+}
+
+/* fade out */
+.page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #4368AE, #3CB5BA);
+  z-index: 9999;
+  opacity: 1; /* Initialement visible */
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s;
+}
+
+.overlay-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white; /* ou toute autre couleur souhaitée */
+  font-size: 7vw; /* Ajustez la taille comme nécessaire */
+  text-align: center;
+  font-family: 'SFRegular';
+}
+
+/* fade in */
+.exit-page-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s;
+}
+.overlay-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 300px;
+  max-height: 300px;
+}
+
+.overlay-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+
+      </style>
+  </head>
+  <body>
+    <div class="page-transition-overlay">
+      <div class="overlay-title">Loading...</div>
+    </div>
+
+    <div class="exit-page-transition-overlay">
+      <img src="./img/logo.png" class="overlay-logo">
+    </div>
+
+    <div class="legal-mentions">
+      <h1>Mentions Légales</h1>
+      <p><strong>Éditeur du Site :</strong> We The Humans</p>
+      <p><strong>Email :</strong> wethehumans@support.com</p>
+      <p><strong>Directeurs de la Publication :</strong> Thibault Delattre et Clément Guerin</p>
+      <p><strong>Hébergement :</strong> Le site est hébergé via Docker.</p>
+      <p><strong>Propriété Intellectuelle :</strong> Tout le contenu du site We The Humans, y compris les textes, graphiques, logos, images, et code source, est la propriété de We The Humans et est protégé par les lois sur la propriété intellectuelle et le droit d'auteur.</p>
+      <p><strong>Utilisation des Données Personnelles :</strong> Les informations collectées sur les utilisateurs du site sont utilisées dans le cadre de la fourniture de nos services et ne seront pas partagées avec des tiers sans consentement explicite. Pour plus d'informations, veuillez consulter notre politique de confidentialité.</p>
+      <p><strong>Limitation de Responsabilité :</strong> We The Humans s'efforce d'assurer l'exactitude et la mise à jour des informations diffusées sur ce site, dont elle se réserve le droit de corriger, à tout moment et sans préavis, le contenu. Cependant, We The Humans ne peut garantir l'exactitude, la précision ou l'exhaustivité des informations mises à la disposition sur ce site.</p>
+      <p><strong>Accès au Site :</strong> Le site est accessible gratuitement à tout utilisateur disposant d’un accès à internet. Tous les coûts afférents à l’accès au site, que ce soit les frais matériels, logiciels ou d’accès à internet sont exclusivement à la charge de l’utilisateur.</p>
+      <p><strong>Droit Applicable :</strong> Les présentes mentions légales sont soumises au droit français. En cas de litige, les tribunaux français seront compétents.</p>
+      <p><strong>Modification des Mentions Légales :</strong> We The Humans se réserve le droit de modifier les mentions légales à tout moment. L’utilisateur est invité à les consulter régulièrement.</p>
+      <p><strong>Crédits :</strong> © 2024 WTH. Tous droits réservés.</p>
+    <img src="./img/signature.PNG">
+    </div>
+
+    <div class="wrapper">
+        <a class="cta" href="{{ path('app_index') }}">
+          <span>BACK</span>
+          <span>
+            <svg width="66px" height="43px" viewBox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <g id="arrow" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <path class="one" d="M40.1543933,3.89485454 L43.9763149,0.139296592 C44.1708311,-0.0518420739 44.4826329,-0.0518571125 44.6771675,0.139262789 L65.6916134,20.7848311 C66.0855801,21.1718824 66.0911863,21.8050225 65.704135,22.1989893 C65.7000188,22.2031791 65.6958657,22.2073326 65.6916762,22.2114492 L44.677098,42.8607841 C44.4825957,43.0519059 44.1708242,43.0519358 43.9762853,42.8608513 L40.1545186,39.1069479 C39.9575152,38.9134427 39.9546793,38.5968729 40.1481845,38.3998695 C40.1502893,38.3977268 40.1524132,38.395603 40.1545562,38.3934985 L56.9937789,21.8567812 C57.1908028,21.6632968 57.193672,21.3467273 57.0001876,21.1497035 C56.9980647,21.1475418 56.9959223,21.1453995 56.9937605,21.1432767 L40.1545208,4.60825197 C39.9574869,4.41477773 39.9546013,4.09820839 40.1480756,3.90117456 C40.1501626,3.89904911 40.1522686,3.89694235 40.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                <path class="two" d="M20.1543933,3.89485454 L23.9763149,0.139296592 C24.1708311,-0.0518420739 24.4826329,-0.0518571125 24.6771675,0.139262789 L45.6916134,20.7848311 C46.0855801,21.1718824 46.0911863,21.8050225 45.704135,22.1989893 C45.7000188,22.2031791 45.6958657,22.2073326 45.6916762,22.2114492 L24.677098,42.8607841 C24.4825957,43.0519059 24.1708242,43.0519358 23.9762853,42.8608513 L20.1545186,39.1069479 C19.9575152,38.9134427 19.9546793,38.5968729 20.1481845,38.3998695 C20.1502893,38.3977268 20.1524132,38.395603 20.1545562,38.3934985 L36.9937789,21.8567812 C37.1908028,21.6632968 37.193672,21.3467273 37.0001876,21.1497035 C36.9980647,21.1475418 36.9959223,21.1453995 36.9937605,21.1432767 L20.1545208,4.60825197 C19.9574869,4.41477773 19.9546013,4.09820839 20.1480756,3.90117456 C20.1501626,3.89904911 20.1522686,3.89694235 20.1543933,3.89485454 Z" fill="#FFFFFF"></path>
+                <path class="three" d="M0.154393339,3.89485454 L3.97631488,0.139296592 C4.17083111,-0.0518420739 4.48263286,-0.0518571125 4.67716753,0.139262789 L25.6916134,20.7848311 C26.0855801,21.1718824 26.0911863,21.8050225 25.704135,22.1989893 C25.7000188,22.2031791 25.6958657,22.2073326 25.6916762,22.2114492 L4.67709797,42.8607841 C4.48259567,43.0519059 4.17082418,43.0519358 3.97628526,42.8608513 L0.154518591,39.1069479 C-0.0424848215,38.9134427 -0.0453206733,38.5968729 0.148184538,38.3998695 C0.150289256,38.3977268 0.152413239,38.395603 0.154556228,38.3934985 L16.9937789,21.8567812 C17.1908028,21.6632968 17.193672,21.3467273 17.0001876,21.1497035 C16.9980647,21.1475418 16.9959223,21.1453995 16.9937605,21.1432767 L0.15452076,4.60825197 C-0.0425130651,4.41477773 -0.0453986756,4.09820839 0.148075568,3.90117456 C0.150162624,3.89904911 0.152268631,3.89694235 0.154393339,3.89485454 Z" fill="#FFFFFF"></path>
+              </g>
+            </svg>
+          </span> 
+        </a>
+      </div>
+    </div>
+  </body>
+
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  const overlay = document.querySelector('.page-transition-overlay');
+  const title = document.querySelector('.overlay-title');
+
+  // Activer l'overlay au chargement de la page
+  overlay.style.opacity = '1';
+  overlay.style.visibility = 'visible';
+  title.textContent = 'MORE'; // Met à jour le titre de l'overlay
+
+  // Désactiver l'overlay après un court délai
+  setTimeout(() => {
+    overlay.style.opacity = '0';
+    overlay.style.visibility = 'hidden';
+  }, 500); // Délai de fade out
+});
+
+
+const links = document.querySelectorAll('.cta');
+  const overlay = document.querySelector('.exit-page-transition-overlay');
+
+  links.forEach(link => {
+    link.addEventListener('click', function (e) {
+      e.preventDefault(); // Empêcher le comportement par défaut du lien
+      const targetUrl = this.getAttribute('href'); // Obtenir l'URL de navigation
+      const linkText = this.textContent || this.innerText; // Obtenir le texte du lien
+
+      // Mettre à jour et activer l'overlay
+      overlay.classList.add('overlay-active');
+
+      // Naviguer vers la nouvelle page après un délai
+      setTimeout(() => {
+        window.location.href = targetUrl;
+      }, 500); // Ce délai doit correspondre à la durée de la transition de l'overlay
+    });
+  });
+
+
+
+
+  </script>
+</html>
+{% endblock %}

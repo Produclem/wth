@@ -1,0 +1,11 @@
+Model Information:
+* title:	Stylized Nose
+* source:	https://sketchfab.com/3d-models/stylized-nose-a8bedf9ba89f4053a0792693243775a6
+* author:	CGJAY1111 (https://sketchfab.com/CGJAY1111)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Stylized Nose" (https://sketchfab.com/3d-models/stylized-nose-a8bedf9ba89f4053a0792693243775a6) by CGJAY1111 (https://sketchfab.com/CGJAY1111) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+Model Information:
+* title:	Stark Scientist
+* source:	https://sketchfab.com/3d-models/stark-scientist-99923155156741a799047fdf9bdd54fe
+* author:	Nappa Saiyan (https://sketchfab.com/NappaSaiyan)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Stark Scientist" (https://sketchfab.com/3d-models/stark-scientist-99923155156741a799047fdf9bdd54fe) by Nappa Saiyan (https://sketchfab.com/NappaSaiyan) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

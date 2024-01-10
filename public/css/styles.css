@@ -174,7 +174,7 @@ body {
     display: flex;
 }
 .btn2 {
-    padding: 6px 20px;
+    padding: 13px 20px;
     margin-left: 10px;
     border: none;
     color: #333;
@@ -211,7 +211,7 @@ body {
 
 .line {
     width: 100%;
-    height: 6px;
+    height: 15px;
     background: linear-gradient(90deg, #3CB5BA 25%, #4368AE 50%, #3CB5BA 75%);
     background-size: 400% 100%;
     animation: slide 10s linear infinite;
