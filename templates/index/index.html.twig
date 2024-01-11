@@ -27,10 +27,22 @@
 						<img src="/img/logo.png" alt="logo">
 					</div>
 
-					<div class="buttons">
-						<a href="{{ path('app_login') }}" class="btn login">Sign In</a>
-						<a href="{{ path('app_register') }}" class="btn register">Create Account</a>
-					</div>
+                    {% if app.user %}
+                        <ul class="nav-links">
+                            <li><a href="#" class="highlight-link">{{ app.user.prenom }} {{ app.user.nom }} <img class="imgLogo" src="{{ app.user.avatar }}" alt="User Avatar" /></a>
+                                <ul class="dropdown">
+                                    <li>
+                                        <a href="{{ path('app_logout') }}"><img src="{{ asset('img/logout.svg') }}" class="svgLogo2" alt="logo logout"/> Logout</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {% else %}
+                        <div class="buttons">
+                            <a href="{{ path('app_login') }}" class="btn2 login">Sign In</a>
+                            <a href="{{ path('app_register') }}" class="btn2 register">Create Account</a>
+                        </div>
+                    {% endif %}
 				</nav>
 				<div class="line"></div>
 			</header>
@@ -110,7 +122,7 @@
 							</span>
 						</a>
 					</div>
-				</div>
+                </section>
 
 				<div class="wrapper">
 					<a class="cta cta-more" href="{{ path('app_more') }}">
@@ -126,7 +138,7 @@
 						</span>
 					</a>
 				</div>
-			</div>
+			</main>
 
 			<p class="droit">© 2024 WTH. Tous droits réservés.</p>
 		</body>

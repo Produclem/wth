@@ -174,7 +174,7 @@ body {
     display: flex;
 }
 .btn2 {
-    padding: 13px 20px;
+    padding: 8px 20px;
     margin-left: 10px;
     border: none;
     color: #333;
@@ -246,6 +246,7 @@ body {
 .sub-dropdown li a:hover,
 .sub-dropdown li a:focus {
     color: #77bfc2;
+
 }
 
 .sub-sub-dropdown li a:hover,

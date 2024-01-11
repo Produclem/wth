@@ -57,6 +57,7 @@
       background-color: white;
       box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
       padding: 12px 20px 12px 0;
+      z-index: 992;
     }
     .dropdown li a {
       color: black;
@@ -67,6 +68,8 @@
       white-space: nowrap;
        overflow: hidden;
     text-overflow: ellipsis;
+      z-index: 992;
+
     }
     .highlight-link:hover {
       color: #4368AE;
@@ -98,6 +101,7 @@
     }
     .nav-links > li:hover > .dropdown {
       display: block;
+      z-index: 1000;
     }
   
   /* Style for the second level dropdown (sub-dropdown) */
@@ -122,7 +126,7 @@
       display: flex;
     }
     .btn {
-      padding: 13px 20px;
+      padding: 8px 20px;
       margin-left: 10px;
       border: none;
       color: #333;
