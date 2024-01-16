@@ -1,1 +1,28 @@
-{% block title %}Symfonite{% endblock %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+    <h1>Liste des articles</h1>
+
+    <div class="article-list">
+        {% for article in articles %}
+            <div class="article-item">
+                <div class="bloc-list">
+                    {% for bloc in article.blocs %}
+                        <div class="bloc-item">
+                            {% if bloc.title is not null %}
+                                <h2>{{ bloc.title }}</h2>
+                            {% endif %}
+                            {% if bloc.paragraph is not null %}
+                                {{ bloc.paragraph|raw }}
+                            {% endif %}
+                            {# Ajoutez d'autres champs de bloc au besoin #}
+                        </div>
+                    {% endfor %}
+                </div>
+                <p><strong>{{ article.name }}</strong> By {{ article.author.prenom }} {{ article.author.nom }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

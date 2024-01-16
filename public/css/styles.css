@@ -308,3 +308,18 @@ body {
 .contact-form button:hover {
     transform: scale(1.03);
 }
+
+/* LISTE DES ARTICLES */
+.article-list {
+    display: flex;
+}
+.article-item {
+    width: fit-content;
+    margin: 30px 0 0 30px;
+}
+.bloc-list {
+    padding: 15px;
+    border-radius: 5px;
+    border: solid #001b44 1px;
+    width: fit-content;
+}

@@ -2,34 +2,65 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
 use App\Repository\BlocRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: BlocRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    types: ['https://schema.org/Book'],
+    operations: [
+        new GetCollection(),
+        new Post(inputFormats: ['multipart' => ['multipart/form-data']])
+    ],
+    normalizationContext: ['groups' => ['bloc:read']],
+    denormalizationContext: ['groups' => ['bloc:write']]
+)]
 class Bloc
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['bloc:read'])]
     private ?int $id = null;
 
+    #[Groups(['bloc:write','bloc:read'])]
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 500, nullable: true)]
-    private ?string $image = null;
+    #[ApiProperty(types: ['https://schema.org/contentUrl'])]
+    #[Groups(['bloc:read'])]
+    public ?string $contentUrl = null;
 
+    /**
+     * @Vich\UploadableField(mapping="image", fileNameProperty="filePath")
+     */
+    #[Groups(['bloc:write'])]
+    public ?File $file = null;
+
+    #[Groups(['bloc:write','bloc:read'])]
+    #[ORM\Column(nullable: true)]
+    public ?string $filePath = null;
+
+    #[Groups(['bloc:write','bloc:read'])]
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $paragraph = null;
 
+    #[Groups(['bloc:write','bloc:read'])]
     #[ORM\Column(length: 500, nullable: true)]
     private ?string $chart = null;
 
+    #[Groups(['bloc:write','bloc:read'])]
     #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'blocs')]
     private Collection $articles;
 
