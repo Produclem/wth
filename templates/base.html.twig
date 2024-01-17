@@ -53,7 +53,16 @@
 
             {% if app.user %}
                 <ul class="nav-links">
-                    <li><a href="#" class="highlight-link">{{ app.user.prenom }} {{ app.user.nom }} <img class="imgLogo" src="{{ app.user.avatar }}" alt="User Avatar" /></a>
+                    <li>
+                        <a href="#" class="highlight-link">
+                            {{ app.user.prenom }} {{ app.user.nom }}
+                            {% if app.user.avatar is null %}
+                                <img class="imgLogo" src="/img/avatar_default.png" alt="User Avatar" style="margin-left: 5px" />
+                            {% else %}
+                                <img class="imgLogo" src="{{ app.user.avatar }}" alt="User Avatar" />
+                            {% endif %}
+                        </a>
+                    </li>
                         <ul class="dropdown">
                             <li>
                                 <a href="{{ path('app_logout') }}"><img src="{{ asset('img/logout.svg') }}" class="svgLogo2" alt="logo logout"/> Logout</a>

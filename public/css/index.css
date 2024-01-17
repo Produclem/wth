@@ -41,15 +41,36 @@
   }
     .nav-links {
       list-style-type: none;
+      display: flex;
+      margin: 0;
+    }
+    #logoutBtn {
+      color: #e82323;
+    }
+    #logoutBtn img {
+      filter: invert(33%) sepia(99%) saturate(1949%) hue-rotate(341deg) brightness(90%) contrast(93%);
     }
     .nav-links li {
-      display: inline-block;
       margin-left: 20px;
       position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .imgLogo {
+      border-radius: 50px;
+      width: 40px;
+      margin-left: 10px;
+    }
+    .svgLogo2 {
+      width: 20px;
+      fill: red;
     }
     .nav-links li a {
       color: rgb(0, 0, 0);
       text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .dropdown {
       display: none;
@@ -136,6 +157,19 @@
       transition: background-color 0.3s;
     }
     .btn:hover {
+      background-color: #555;
+    }
+    .btn2 {
+      padding: 8px 20px;
+      margin-left: 10px;
+      border: none;
+      color: #333;
+      background-color: #bdbdbd;
+      text-decoration: none;
+      border-radius: 30px;
+      transition: background-color 0.3s;
+    }
+    .btn2:hover {
       background-color: #555;
     }
     .login {
