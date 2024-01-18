@@ -15,8 +15,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: BlocRepository::class)]
+#[Vich\Uploadable]
 #[ApiResource(
     types: ['https://schema.org/Book'],
     operations: [
@@ -42,10 +42,8 @@ class Bloc
     #[Groups(['bloc:read'])]
     public ?string $contentUrl = null;
 
-    /**
-     * @Vich\UploadableField(mapping="image", fileNameProperty="filePath")
-     */
-    #[Groups(['bloc:write'])]
+    #[Vich\UploadableField(mapping: 'image', fileNameProperty: 'filePath')]
+    #[Groups(['bloc:write','bloc:read'])]
     public ?File $file = null;
 
     #[Groups(['bloc:write','bloc:read'])]
