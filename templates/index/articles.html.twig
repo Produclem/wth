@@ -14,6 +14,9 @@
                             {% if bloc.title is not null %}
                                 <h2>{{ bloc.title }}</h2>
                             {% endif %}
+                            {% if bloc.filePath is not null %}
+                                <img src="/media/images/{{ bloc.filePath }}" />
+                            {% endif %}
                             {% if bloc.paragraph is not null %}
                                 {{ bloc.paragraph|raw }}
                             {% endif %}
