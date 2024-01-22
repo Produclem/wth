@@ -208,7 +208,12 @@ body {
         background-position: 100% 50%;
     }
 }
-
+.bloc-item {
+    width: fit-content;
+}
+.bloc-item > img {
+    width: 200px;
+}
 .line {
     width: 100%;
     height: 15px;
