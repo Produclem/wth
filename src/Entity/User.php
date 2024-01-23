@@ -45,9 +45,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Article::class)]
     private Collection $articles;
 
+    #[ORM\OneToMany(mappedBy: 'creator', targetEntity: Theme::class)]
+    private Collection $themes;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
+        $this->themes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -180,6 +184,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($article->getAuthor() === $this) {
                 $article->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Theme>
+     */
+    public function getThemes(): Collection
+    {
+        return $this->themes;
+    }
+
+    public function addTheme(Theme $theme): static
+    {
+        if (!$this->themes->contains($theme)) {
+            $this->themes->add($theme);
+            $theme->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTheme(Theme $theme): static
+    {
+        if ($this->themes->removeElement($theme)) {
+            // set the owning side to null (unless already changed)
+            if ($theme->getCreator() === $this) {
+                $theme->setCreator(null);
             }
         }
 

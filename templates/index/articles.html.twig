@@ -13,18 +13,12 @@
                     {% for bloc in article.blocs %}
                         <div class="bloc-item">
                             {% if bloc.title is not null %}
-                                <h2>{{ bloc.title }}</h2>
-                            {% endif %}
-                            {% if bloc.filePath is not null %}
-                                <img src="/media/images/{{ bloc.filePath }}" />
-                            {% endif %}
-                            {% if bloc.paragraph is not null %}
-                                {{ bloc.paragraph|raw }}
+                                <a href="{{ path('article', {'id': article.id}) }}"><h2 class="titleArticles">{{ bloc.title }}</h2></a>
                             {% endif %}
                         </div>
                     {% endfor %}
+                    <p><strong>{{ article.name }}</strong> By {{ article.author.prenom }} {{ article.author.nom }}</p>
                 </div>
-                <p><strong>{{ article.name }}</strong> By {{ article.author.prenom }} {{ article.author.nom }}</p>
             </div>
         {% endfor %}
         {% endif %}

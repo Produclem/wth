@@ -5,17 +5,27 @@
 {% block title %}{{ article.name }}{% endblock %}
 
 {% block body %}
-    <h1>{{ article.name }}</h1>
-
-{#    {% if article.image %}#}
-{#        <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.title }} image">#}
-{#    {% endif %}#}
-
-{#    <p>{{ article.paragraph }}</p>#}
-
-    {% if blocs is defined and blocs is not empty %}
-        {% for bloc in blocs %}
-             <h2>{{ bloc.type }}</h2>
-        {% endfor %}
-    {% endif %}
+    <a href="{{ path("app_articles") }}"></a>
+    <div class="containerArticle">
+        <div class="affichageArticle" style="{% if activeTheme is defined and activeTheme is not null and activeTheme.background is not null %}background-color: {{ activeTheme.background }};{% endif %}">
+            {% if blocs is defined and blocs is not empty %}
+                {% for bloc in blocs %}
+                    {% if bloc.type == "title" %}
+                        <h1 style="{% if activeTheme is defined and activeTheme is not null and activeTheme.first is not null %}color: {{ activeTheme.first }};{% endif %}">{{ bloc.title }}</h1>
+                    {% endif %}
+                    {% if bloc.type == "file" %}
+                        <img src="{{ asset('media/images/' ~ bloc.filePath) }}" alt="{{ bloc.title }} image" class="imgArticle">
+                    {% endif %}
+                {% endfor %}
+                {% for bloc in blocs %}
+                    {% if bloc.type == "paragraph" %}
+                        <div class="paragraphArticle" style="{% if activeTheme is defined and activeTheme is not null and activeTheme.second is not null %}color: {{ activeTheme.second }};{% endif %}">{{ bloc.paragraph|raw }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+        <p>
+            <strong>{{ article.name }}</strong> By {{ article.author.prenom }} {{ article.author.nom }}
+        </p>
+    </div>
 {% endblock %}
