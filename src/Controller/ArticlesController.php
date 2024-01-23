@@ -28,9 +28,9 @@ class ArticlesController extends AbstractController
         if (!$article) {
             throw $this->createNotFoundException('L\'article n\'existe pas');
         }
-        $blocs = $blocRepository->findBy(['article' => $article]);
+        $blocs = $blocRepository->findByArticle($article);
 
-        return $this->render('article/article.html.twig', [
+        return $this->render('index/article.html.twig', [
             'article' => $article,
             'blocs' => $blocs,
         ]);

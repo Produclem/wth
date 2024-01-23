@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Article;
 use App\Entity\Bloc;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,16 @@ class BlocRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Bloc::class);
+    }
+
+    public function findByArticle(Article $article)
+    {
+        return $this->createQueryBuilder('b')
+            ->join('b.articles', 'a')
+            ->where('a.id = :articleId')
+            ->setParameter('articleId', $article->getId())
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

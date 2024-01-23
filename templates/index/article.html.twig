@@ -2,21 +2,20 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ article.title }}{% endblock %}
+{% block title %}{{ article.name }}{% endblock %}
 
-{% block content %}
-    <h1>{{ article.title }}</h1>
+{% block body %}
+    <h1>{{ article.name }}</h1>
 
-    {% if article.image %}
-        <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.title }} image">
-    {% endif %}
+{#    {% if article.image %}#}
+{#        <img src="{{ asset('uploads/' ~ article.image) }}" alt="{{ article.title }} image">#}
+{#    {% endif %}#}
 
-    <p>{{ article.paragraph }}</p>
+{#    <p>{{ article.paragraph }}</p>#}
 
     {% if blocs is defined and blocs is not empty %}
         {% for bloc in blocs %}
-            {# Afficher les autres blocs liés à l'article #}
-            {# Exemple : <h2>{{ bloc.title }}</h2><p>{{ bloc.content }}</p> #}
+             <h2>{{ bloc.type }}</h2>
         {% endfor %}
     {% endif %}
 {% endblock %}
