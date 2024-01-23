@@ -10,7 +10,7 @@
     <div class="w-100 d-flex justify-content-center"><h1 class="mb-3">Register</h1></div>
         {{ form_row(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }}
         {{ form_row(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
-        {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+        {{ form_row(registrationForm.email, {'attr': {'class': 'form-control', 'type': 'email', 'required': true}}) }}
         {{ form_row(registrationForm.plainPassword, {
             label: 'Password',
         }) }}

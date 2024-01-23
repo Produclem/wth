@@ -6,6 +6,7 @@
     <h1>Liste des articles</h1>
 
     <div class="article-list">
+        {% if articles is defined and articles is not empty %}
         {% for article in articles %}
             <div class="article-item">
                 <div class="bloc-list">
@@ -20,12 +21,12 @@
                             {% if bloc.paragraph is not null %}
                                 {{ bloc.paragraph|raw }}
                             {% endif %}
-                            {# Ajoutez d'autres champs de bloc au besoin #}
                         </div>
                     {% endfor %}
                 </div>
                 <p><strong>{{ article.name }}</strong> By {{ article.author.prenom }} {{ article.author.nom }}</p>
             </div>
         {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}

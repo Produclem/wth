@@ -24,31 +24,9 @@
                 {% if app.user and app.user.roles[0] == "ROLE_ADMIN" %}
                 <li><a href="http://localhost:3000" class="highlight-link rougeAdmin">Dashboard<img src="{{ asset('img/arrow.png') }}" class="svgLogo2"/></a></li>
                 {% endif %}
-                <li><a href="#" class="highlight-link">Articles</a>
-                    <ul class="dropdown">
-                        <li>
-                            <a href="#" class="dropdown-link">Tête</a>
-                            <ul class="sub-dropdown">
-                                <li>
-                                    <a href="#" class="sub-dropdown-link">Yeux</a>
-                                    <ul class="sub-sub-dropdown">
-                                        <li><a href="#">Iris</a></li>
-                                        <li><a href="#">Autre catégorie</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#" class="sub-dropdown-link">Nez</a></li>
-                                <li><a href="#" class="sub-dropdown-link">Bouche</a></li>
-                                <li><a href="#" class="sub-dropdown-link">Oreille</a></li>
-                            </ul>
-                        </li>
-
-                        <li><a href="#">Haut du corps</a></li>
-                        <li><a href="#">Bas du corps</a></li>
-                        <li><a href="#">Jambe</a></li>
-                    </ul>
-                </li>
+                <li><a href="{{ path('app_articles') }}" class="highlight-link">Articles</a></li>
                 <li><a href="{{ path('app_contact') }}" class="highlight-link">Contact</a></li>
-                <li><a href="#" class="highlight-link">Mentions Légales</a></li>
+                <li><a href="{{ path('app_more') }}" class="highlight-link">Mentions Légales</a></li>
             </ul>
 
             {% if app.user %}

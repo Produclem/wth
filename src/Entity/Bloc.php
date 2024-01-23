@@ -62,6 +62,10 @@ class Bloc
     #[ORM\ManyToMany(targetEntity: Article::class, mappedBy: 'blocs')]
     private Collection $articles;
 
+    #[Groups(['bloc:write','bloc:read'])]
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $type = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -143,6 +147,18 @@ class Bloc
         if ($this->articles->removeElement($article)) {
             $article->removeBloc($this);
         }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }
