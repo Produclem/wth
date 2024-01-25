@@ -351,7 +351,8 @@
   
   
   
-  
+
+    
   
   @import url('https://fonts.googleapis.com/css?family=Poppins:900i');
   
@@ -772,3 +773,9 @@
     margin-bottom: 0;
   }
   }
+
+  .disabled-link {
+    background-color: #888888;
+    pointer-events: none; /* Désactive les événements de la souris, rendant le lien non cliquable */
+    cursor: default;
+}
