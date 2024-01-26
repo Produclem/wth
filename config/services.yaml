@@ -20,5 +20,13 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Session\DbSessionHandler:
+        arguments:
+            $manager: '@doctrine.orm.entity_manager'
+
+#    session.handler.doctrine:
+#        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler
+#        arguments: [ '%kernel.cache_dir%/sessions' ]
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
