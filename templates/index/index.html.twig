@@ -88,8 +88,18 @@
 					</div>
 
 					<div class="wrapper">
-						<a class="cta cta-dashboard {% if not app.user or 'ROLE_USER' in app.user.roles and 'ROLE_SUBSCRIBER' not in app.user.roles %}disabled-link{% endif %}
-							" href="{{ path('app_dashboard') }}">
+						{% set allowedRoles = ['ROLE_AUTHOR', 'ROLE_PUBLISHER', 'ROLE_DESIGNER', 'ROLE_SUPPLIER', 'ROLE_ADMIN'] %}
+						{% set hasAllowedRole = false %}
+
+						{% if app.user %}
+							{% for role in allowedRoles %}
+								{% if role in app.user.roles %}
+									{% set hasAllowedRole = true %}
+								{% endif %}
+							{% endfor %}
+						{% endif %}
+
+						<a class="cta cta-dashboard {% if not app.user or not hasAllowedRole %}disabled-link{% endif %}" href="http://localhost:3000">
 							<span>DASHBOARD</span>
 							<span>
 								<svg width="66px" height="43px" viewbox="0 0 66 43" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
